@@ -45,6 +45,11 @@ File::Find::find(
             return
         }
     }, $data->{build_dir});
+print JSON::encode_json({
+    supported_api => 1,
+    command => 'results',
+    version => '1.0',
+    checks => []}) unless $perlpkg;
 exit unless $perlpkg;
 
 my @results = ();
@@ -98,4 +103,5 @@ push @results, {%$test};
 print JSON::encode_json({
     supported_api => 1,
     command => 'results',
+    version => '1.0',
     checks => [@results]});
